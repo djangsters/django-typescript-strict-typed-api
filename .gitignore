@@ -1,1 +1,13 @@
 .idea/
+db.sqlite3
+
+# python
+*.pyc
+__pycache__
+
+node_modules
+
+.env
+api_docs.json
+media-private/
+media-public/
