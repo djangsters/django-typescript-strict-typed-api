@@ -1,13 +1,6 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.scss';
-import App from './App';
+import r2wc from '@r2wc/react-to-web-component'
+import SimpleComponent from "./components/SimpleComponent";
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const SimpleComponentWC = r2wc(SimpleComponent)
+
+customElements.define('react-component', SimpleComponentWC)

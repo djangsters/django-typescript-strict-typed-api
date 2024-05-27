@@ -5,7 +5,6 @@ const getPublicUrlOrPath = require('react-dev-utils/getPublicUrlOrPath')
 const fs = require('fs')
 const getClientEnvironment = require('./config/env.cjs')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 const isEnvProduction = process.env.NODE_ENV === 'production'
@@ -23,7 +22,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
     entry: {
         main: {
-            import: ['./src/index.tsx', './src/index.scss'],
+            import: ['./src/index.tsx'],
             filename: 'index.js'
         }
     },
@@ -56,7 +55,6 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader'
@@ -126,12 +124,6 @@ module.exports = {
           entrypoints: entrypointFiles
         }
       }
-    }),
-    // allows separate css bundle
-    new MiniCssExtractPlugin({
-        filename: ({ chunk }) => {
-            return chunk.name === 'main' ? 'index.scss': `${chunk.name}.css`
-        }
     })
   ],
   optimization: {
