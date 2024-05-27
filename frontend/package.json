@@ -36,6 +36,7 @@
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "oazapfts": "^6.1.0",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -63,8 +64,10 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
+    "check:types": "tsc --project tsconfig.json",
     "start": "NODE_ENV=development webpack-dev-server",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack",
+    "generate:api": "oazapfts api_docs.json api/generated-api.ts"
   },
   "eslintConfig": {
     "extends": [

@@ -11,4 +11,5 @@ def add(request, a: int, b: int):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', api.urls),
+    path('', include("hello.urls"))
 ]
