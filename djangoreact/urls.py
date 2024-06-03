@@ -1,15 +1,20 @@
 from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import include, path
 from ninja import NinjaAPI
+from ninja.security import django_auth
 
-api = NinjaAPI()
+from hello.api import router as hello_router
 
-@api.get("/add")
-def add(request, a: int, b: int):
-    return {"result": a + b}
+api = NinjaAPI(
+    auth=django_auth,
+    docs_decorator=staff_member_required,
+)
+
+api.add_router("/hello/", hello_router)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', api.urls),
-    path('', include("hello.urls"))
+    path("admin/", admin.site.urls),
+    path("api/", api.urls),
+    path("", include("hello.urls")),
 ]

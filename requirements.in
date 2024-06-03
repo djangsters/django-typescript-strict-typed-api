@@ -1,0 +1,6 @@
+Django
+django-ninja
+
+ruff
+mypy
+django-stubs

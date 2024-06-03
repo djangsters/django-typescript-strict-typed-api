@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app:z
+    ports:
+      - "8000:8000"
+  yarn:
+    image: node:18
+    user: "node"
+    command:
+      - /bin/bash
+      - -c
+      - |
+        yarn
+        yarn build
+    volumes:
+      - ./frontend:/app:z
+    working_dir: /app/

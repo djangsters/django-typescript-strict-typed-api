@@ -1,0 +1,24 @@
+[tool.mypy]
+plugins = "mypy_django_plugin.main"
+exclude = [
+    "manage.py",
+    "frontend",
+    "migrations/"
+]
+strict = true
+
+[tool.django-stubs]
+django_settings_module = "djangoreact.settings"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+exclude = [".git", "*/migrations/*", "frontend","manage.py"]
+
+[tool.ruff.lint]
+preview = true
+select = ["ALL"]
+ignore = ["ANN",  # Type hints related, let mypy handle these.
+          "D",  # Docstrings
+          "CPY001", # Copyright
+]
