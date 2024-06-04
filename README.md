@@ -5,6 +5,28 @@ You can find the article [here]().
 
 ## Running the app
 ### Docker
+Build
+```shell
+docker compose build
+```
+Migrate
+```shell
+docker compose run web python manage.py migrate
+```
+Create a user and export the API as JSON
+```shell
+docker compose run web python manage.py createsuperuser
+docker compose run web python manage.py export_openapi_schema --output frontend/api_docs.json --indent 2
+```
+
+Generate API interface and types
+```shell
+docker compose run yarn yarn generate:api
+```
+Run the application
+```shell
+docker compose up
+```
 
 ### Locally
 If you want to run it locally you need to have python3 and yarn installed.
@@ -12,7 +34,7 @@ If you want to run it locally you need to have python3 and yarn installed.
 After cloning the Application the first thing is to Run the django migrations and generate the API JSON
 
 ```shell
-python manage.py runserver
+python manage.py migrate
 python manage.py export_openapi_schema --output frontend/api_docs.json --indent 2
 ```
 Then build the frontend, go into the frontend folder and install dependancies
