@@ -1,29 +1,28 @@
 import React, { useState } from "react";
 import { helloApiAdd } from "../../api/generated-api"
 import { useCookies } from 'react-cookie'
-import { send } from "process";
 
 
 
 const SimpleComponent = () =>{
     const [result, setResult] = useState([])
-
-    function sendForm(formData){
-        fetchAdd(formData.x, formData.y)
-        console.log("ttt")
-    }
+    const [cookies] = useCookies(['csrftoken'])
 
     async function fetchAdd(x: number, y: number) {
-        const [cookies] = useCookies(['csrftoken'])
-        const response = await fetch('/api/hello/add', {
+        const response = await  fetch('/api/hello/add', {
             method: "POST",
             headers: { 'X-CSRFToken': cookies.csrftoken},
             body: JSON.stringify({x: x, y:y})
-        }).then(res => {
-            const data = res.json()
-            setResult(data.result)
         })
+        const data = await response.json()
+        setResult(x +  " + " + y + " = " + data.result)
     }
+
+    function sendForm(formData){
+        fetchAdd(formData.get("x"), formData.get("y"))
+    }
+
+
 
     return(
         <div>
@@ -33,9 +32,11 @@ const SimpleComponent = () =>{
                 <input type="text" name="y" />
                 <button type="submit">=</button>
             </form>
+            <div>
+                Result: {result}
+            </div>
         </div>
-    )
+  )
 }
-
 
 export default SimpleComponent
