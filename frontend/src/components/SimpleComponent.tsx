@@ -9,12 +9,12 @@ const SimpleComponent = () =>{
     const [cookies] = useCookies(['csrftoken'])
 
     async function fetchAdd(x: number, y: number) {
-        const response = await  fetch('/api/hello/add', {
-            method: "POST",
+        const response = await helloApiAdd(
+            {x: x, y: y},{
             headers: { 'X-CSRFToken': cookies.csrftoken},
-            body: JSON.stringify({x: x, y:y})
-        })
-        const data = await response.json()
+            }
+        )
+        const data = response.data
         setResult(x +  " + " + y + " = " + data.result)
     }
 

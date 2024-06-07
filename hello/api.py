@@ -7,6 +7,9 @@ class AddSchema(Schema):
     x: int
     y: int
 
-@router.post("/add")
-def add(request: HttpRequest, data: AddSchema):  # type: ignore[no-untyped-def] # noqa: ARG001
+class ResultSchema(Schema):
+    result: int
+
+@router.post("/add", response=ResultSchema)
+def add(request: HttpRequest, data: AddSchema):
     return {"result": data.x + data.y}
