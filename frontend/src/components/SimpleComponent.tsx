@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { helloApiAdd } from "../../api/generated-api"
 import { useCookies } from 'react-cookie'
 
-
-
 const SimpleComponent = () =>{
     const [result, setResult] = useState([])
     const [cookies] = useCookies(['csrftoken'])
@@ -22,13 +20,12 @@ const SimpleComponent = () =>{
         fetchAdd(formData.get("x"), formData.get("y"))
     }
 
-
-
     return(
         <div>
             <h3>Add API call</h3>
             <form action={sendForm}>
                 <input type="text" name="x" />
+                +
                 <input type="text" name="y" />
                 <button type="submit">=</button>
             </form>

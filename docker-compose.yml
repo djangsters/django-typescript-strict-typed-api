@@ -18,7 +18,12 @@ services:
       - -c
       - |
         yarn
-        yarn build
+        echo 'run'
+        if [ "$WEBPACK_DEV_SERVER" = true ]; then
+          yarn start
+        else
+          yarn build
+        fi
     volumes:
       - ./frontend:/app:z
     working_dir: /app/
