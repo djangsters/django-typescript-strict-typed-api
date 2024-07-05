@@ -22,14 +22,22 @@ django-stubs==5.0.2
     # via -r requirements.in
 django-stubs-ext==5.0.2
     # via django-stubs
+environs==11.0.0
+    # via -r requirements.in
+marshmallow==3.21.2
+    # via environs
 mypy==1.10.0
     # via -r requirements.in
 mypy-extensions==1.0.0
     # via mypy
+packaging==24.0
+    # via marshmallow
 pydantic==2.7.2
     # via django-ninja
 pydantic-core==2.18.3
     # via pydantic
+python-dotenv==1.0.1
+    # via environs
 ruff==0.4.7
     # via -r requirements.in
 sqlparse==0.5.0

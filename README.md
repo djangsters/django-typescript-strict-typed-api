@@ -56,4 +56,25 @@ You can now start the application
 cd ..
 python manage.py runserver
 ```
-You can view the application at http://localhost:8000/
+
+### Environment Variable
+There are two environment variables available.
+first create the env file
+```shell
+touch .env
+```
+#### SECRET_KEY
+This is the secret key for django and is required. You can set it in `.env`
+```
+SECRET_KEY=this_is_a_key
+```
+#### WEBPACK_DEV_SERVER
+This determines whether the frontend builds a production build or starts in dev mode.
+It is optional. By default it creates a builds a production build.
+```
+WEBPACK_DEV_SERVER=true
+```
+
+### Usage
+After set up you will be able to access the app at  http://localhost:8000/hello.
+The API requires authentication, so you can log in using the account you created at You can view the application at http://localhost:8000/admin.

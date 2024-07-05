@@ -12,14 +12,23 @@ export const defaults: Oazapfts.Defaults<Oazapfts.CustomHeaders> = {
 };
 const oazapfts = Oazapfts.runtime(defaults);
 export const servers = {};
+export type AddSchema = {
+    x: number;
+    y: number;
+};
+export type ResultSchema = {
+    result: number;
+};
 /**
  * Add
  */
-export function djangoreactUrlsAdd(a: number, b: number, opts?: Oazapfts.RequestOpts) {
-    return oazapfts.fetchText(`/api/add${QS.query(QS.explode({
-        a,
-        b
-    }))}`, {
-        ...opts
-    });
+export function helloApiAdd(addSchema: AddSchema, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.fetchJson<{
+        status: 200;
+        data: ResultSchema;
+    }>("/api/hello/add", oazapfts.json({
+        ...opts,
+        method: "POST",
+        body: addSchema
+    }));
 }

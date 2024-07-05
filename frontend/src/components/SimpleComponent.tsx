@@ -1,19 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import { helloApiAdd } from "../../api/generated-api"
+import { useCookies } from 'react-cookie'
 
 const SimpleComponent = () =>{
+    const [result, setResult] = useState([])
+    const [cookies] = useCookies(['csrftoken'])
+
+    async function fetchAdd(x: number, y: number) {
+        const response = await helloApiAdd(
+            {x: x, y: y},{
+            headers: { 'X-CSRFToken': cookies.csrftoken},
+            }
+        )
+        const data = response.data
+        setResult(x +  " + " + y + " = " + data.result)
+    }
+
+    function sendForm(formData){
+        fetchAdd(formData.get("x"), formData.get("y"))
+    }
+
     return(
         <div>
-            <h3>This is a React Component</h3>
-            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A at aut cupiditate, delectus dolorum, illo
-                laboriosam maiores quas repellat, sint ullam vel vero voluptates? Accusantium adipisci cupiditate natus
-                non repellendus?
-            </div>
-            <div>A deleniti dicta et exercitationem, harum ipsam modi officia praesentium quia quis, repellat tempora
-                veritatis voluptas. Aliquam architecto eum, expedita in labore maiores minus nostrum nulla optio sunt
-                unde vero?
+            <h3>Add API call</h3>
+            <form action={sendForm}>
+                <input type="text" name="x" />
+                +
+                <input type="text" name="y" />
+                <button type="submit">=</button>
+            </form>
+            <div>
+                Result: {result}
             </div>
         </div>
-    )
+  )
 }
 
 export default SimpleComponent

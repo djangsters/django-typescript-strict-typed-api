@@ -8,6 +8,8 @@ services:
       - .:/app:z
     ports:
       - "8000:8000"
+    env_file:
+      - .env
   yarn:
     image: node:18
     user: "node"
@@ -16,7 +18,12 @@ services:
       - -c
       - |
         yarn
-        yarn build
+        echo 'run'
+        if [ "$WEBPACK_DEV_SERVER" = true ]; then
+          yarn start
+        else
+          yarn build
+        fi
     volumes:
       - ./frontend:/app:z
     working_dir: /app/

@@ -1,9 +1,15 @@
 from django.http import HttpRequest
-from ninja import Router
+from ninja import Router, Schema
 
 router = Router()
 
+class AddSchema(Schema):
+    x: int
+    y: int
 
-@router.get("/add")
-def add(request: HttpRequest, a: int, b: int):  # type: ignore[no-untyped-def] # noqa: ARG001
-    return {"result": a + b}
+class ResultSchema(Schema):
+    result: int
+
+@router.post("/add", response=ResultSchema)
+def add(request: HttpRequest, data: AddSchema):
+    return {"result": data.x + data.y}
