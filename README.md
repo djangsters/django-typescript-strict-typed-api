@@ -10,6 +10,27 @@ to automatically generate interface from the API docs.
 This example was built for the [article](https://www.djangsters.de/en/blog/build-reliable-django-frontend-apis-like-a-ninja/).
 
 ## Running the app
+
+### Environment Variable
+First create the env file
+```shell
+touch .env
+```
+There are two environment variables to be set.
+
+#### SECRET_KEY
+This is the secret key for django and is required.
+```
+SECRET_KEY=this_is_a_key
+```
+#### WEBPACK_DEV_SERVER
+This determines whether the frontend builds a production build or starts in dev mode.
+It is optional. By default it creates a production build.
+```
+WEBPACK_DEV_SERVER=true
+```
+
+
 ### Docker
 Build
 ```shell
@@ -17,17 +38,18 @@ docker compose build
 ```
 Migrate
 ```shell
-docker compose run web python manage.py migrate
+docker compose run --rm web python manage.py migrate
 ```
-Create a user and export the API as JSON
+Create a superuser and export the API as JSON
 ```shell
-docker compose run web python manage.py createsuperuser
-docker compose run web python manage.py export_openapi_schema --output frontend/api_docs.json --indent 2
+docker compose run --rm web python manage.py createsuperuser
+docker compose run --rm web python manage.py export_openapi_schema --output frontend/api_docs.json --indent 2
 ```
 
 Generate API interface and types
 ```shell
-docker compose run yarn yarn generate:api
+docker compose run --rm yarn yarn
+docker compose run --rm yarn yarn generate:api
 ```
 Run the application
 ```shell
@@ -43,7 +65,7 @@ After cloning the Application the first thing is to Run the django migrations an
 python manage.py migrate
 python manage.py export_openapi_schema --output frontend/api_docs.json --indent 2
 ```
-Then build the frontend, go into the frontend folder and install dependancies
+Then build the frontend, go into the frontend folder and install dependencies
 ```shell
 cd frontend
 yarn
@@ -63,24 +85,6 @@ cd ..
 python manage.py runserver
 ```
 
-### Environment Variable
-There are two environment variables available.
-first create the env file
-```shell
-touch .env
-```
-#### SECRET_KEY
-This is the secret key for django and is required. You can set it in `.env`
-```
-SECRET_KEY=this_is_a_key
-```
-#### WEBPACK_DEV_SERVER
-This determines whether the frontend builds a production build or starts in dev mode.
-It is optional. By default it creates a builds a production build.
-```
-WEBPACK_DEV_SERVER=true
-```
-
 ### Usage
-After set up you will be able to access the app at  http://localhost:8000/hello.
-The API requires authentication, so you can log in using the account you created at You can view the application at http://localhost:8000/admin.
+After set up you will be able to access the app at http://localhost:8000/hello.
+The api docs can are served under http://localhost:8000/api/docs. Log in with the superuser credentials to access them.
