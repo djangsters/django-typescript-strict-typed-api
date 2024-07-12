@@ -1,7 +1,13 @@
-# Django React Part 2
+# Build reliable Django frontend APIs like a Ninja
 
-This is a simple app to demonstrate the approach for integrating Django and React.
-You can find the article [here]().
+This is a simple app to demonstrate the approach for implementing an API with Django, that
+guarantees equality between what the backend provides and what the frontend consumes.
+On the backend it uses [django-ninja](https://django-ninja.dev/) to build the API
+together with API docs.
+On the frontend it uses TypeScript with [oazapfts](https://github.com/oazapfts/oazapfts)
+to automatically generate interface from the API docs.
+
+This example was built for the [article](https://www.djangsters.de/en/blog/build-reliable-django-frontend-apis-like-a-ninja/).
 
 ## Running the app
 ### Docker
